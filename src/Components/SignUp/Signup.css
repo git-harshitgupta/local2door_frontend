@@ -1,0 +1,33 @@
+.profileImage{
+    width:200px;
+    height:200px;
+    border:1px dotted gray;
+    border-radius:100%;
+    object-fit:cover;
+}
+.addPhoto{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-left: 153px;
+    margin-top: -54px;
+    border-radius: 100%;
+}
+
+.signUpCard{
+    width: 100%;
+}
+.signUpCardContainer{
+    width: 83%;
+    box-shadow: 1px 1px 7px grey;
+    padding: 17px;
+    margin-top: 28%;
+    transition-duration: 1s;
+}
+.signUpCardContainer:hover{
+    background: lightgray;
+}
+.signUpCardText{
+    margin-left: 38px;
+    font-size: 19px;
+}

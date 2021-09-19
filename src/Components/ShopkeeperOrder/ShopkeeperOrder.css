@@ -1,0 +1,48 @@
+.root{
+    box-shadow: 1px 1px 5px grey;
+    width: 100%;
+}
+
+.userProfilePicture{
+    width: 76%;
+    padding: 8px;
+}
+
+.customerName{
+    font-family: 'Montserrat';
+    font-size: 17px;
+    margin-top: 18px;
+}
+
+.addrees{
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.priceText{
+    font-weight: bold;
+    margin-top: 25%;
+}
+
+.doneOrder{
+    padding-left: 0px;
+    width: 95px;
+}
+
+.doneButton{
+    width: 64px;
+    padding: 7px;
+    margin-top: 20px;
+    background: #FFC107;
+    color: white;
+    font-weight: 500;
+    transition: 0.1s;
+    border-radius: 5px;
+    box-shadow: none;
+    border: none;
+}
+
+.doneButton:hover{
+    background-color: #c29202;
+    
+}

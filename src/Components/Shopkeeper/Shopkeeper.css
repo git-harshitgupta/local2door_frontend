@@ -1,0 +1,29 @@
+.imageSize{
+    width: 25%;
+}
+.image{
+    width: 100%;
+    margin-top: 14px;
+}
+.menuItem{
+    transition-duration: 1s;
+    box-shadow: 1px 1px 5px grey;
+}
+.menuItemContainer{
+    margin-top: 15%;
+}
+.menuItem:hover{
+    background:lightgrey;
+}
+.borderShadow{
+    padding: 7px;
+    box-shadow: 1px 1px 5px grey;
+}
+.imageHandle{
+    margin-left: 21px;
+    padding: 6px;
+    transition-duration: 1s;
+}
+.imageHandle:hover{
+    background:lightgrey;
+}

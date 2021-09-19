@@ -1,0 +1,39 @@
+.box{
+    width :100%;
+    
+}
+.profileImage{
+    width:200px;
+    height:200px;
+    border:1px dotted gray;
+    border-radius:100%;
+    object-fit:cover;
+}
+.addPhoto{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-left: 153px;
+    margin-top: -54px;
+    border-radius: 100%;
+}
+.textBox{
+    border:2px solid #aaa;
+    width:200px;
+    border-radius:4px;
+    margin:8px 2px;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+    
+}
+.textBox:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+}
+.text{
+    font-family:Montserrat;
+    font-size:18px;
+    margin-top:13px;
+}
