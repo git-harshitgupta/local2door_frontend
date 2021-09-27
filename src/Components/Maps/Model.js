@@ -1,53 +1,76 @@
 import "./Modal.css";
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import ApiService from "../Service/ApiService";
+import { ToastContainer, toast } from 'react-toastify';
 import { useHistory } from "react-router";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { SignUpFormContext } from "../Context/SignUpFormContext";
 export default function Modal(props) {
+  const notify = () => {
+    toast("Registeration Succesful!")
+    histroy.push("/")
+            setForm("")
+  }
   const histroy=useHistory();
+  const [form,setForm]=useContext(SignUpFormContext);
     const [modal, setModal] = useState(false);
     const [result,setresult]=useState();
     const Model = () => {
       setModal(!modal);
     };
     const toggleModal = () => {
-      localStorage.setItem("location",props.longitude+","+props.latitude)
+      setModal(!modal);
       let user={};
-      if(localStorage.getItem('user')=="CUSTOMER"){
+      if(form.user=="CUSTOMER"){
         user ={
-        name:localStorage.getItem('name'),
-        email:localStorage.getItem('email'),
-        password:localStorage.getItem('password'),
-        location:props.longitude+","+props.latitude,
-        mobileNo:localStorage.getItem('mobileNo'),
-        user:localStorage.getItem('user'),
-        fullAddreas:localStorage.getItem('fullAddreas'),
-        houseNo:localStorage.getItem('houseNo'),
+        name:form.name,
+        email:form.email,
+        password:form.password,
+        lati:props.latitude,
+        longi:props.longitude,
+        mobileNo:form.mobileNo,
+        user:"CUSTOMER",
+        fullAddreas:form.fullAddreas,
+        houseNo:form.house,
         }
       }
       else{
         user ={
-          shopName:localStorage.getItem('shopName'),
-          email:localStorage.getItem('email'),
-          password:localStorage.getItem('password'),
-          location:props.longitude+","+props.latitude,
-          mobileNo:localStorage.getItem('mobileNo'),
-          user:localStorage.getItem('user'),
-          fullAddreas:localStorage.getItem('fullAddreas'),
-          shopRegId:localStorage.getItem('shopRegId'),
+          shopName:form.shopName,
+          email:form.email,
+          password:form.password,
+          lati:props.latitude,
+          longi:props.longitude,
+          mobileNo:form.mobileNo,
+          user:"SHOPKEEPER",
+          fullAddreas:form.fullAddreas,
+          shopRegId:form.shopRegId,
           }
       }
-        ApiService.addUser(user);
-        setresult("Registered");
-       
-        setModal(!modal);
+        console.log(user);
+        ApiService.addUser(user).then((resp)=>{
+          var id=resp.data.id;
+          if(form.profileImage==null)
+          {
+            notify()
+            
 
+          }
+          else{
+          ApiService.addProfilePicture(form.user.toLowerCase(),id,form.profileImage).then(()=>{
+            const notify = () => toast("Registeration Succesful!");
+            histroy.push("/")
+            setForm("")
+          })}
+        })
+       
+        
     }
     
     const closeModal=()=>{
       setModal(!modal);
-      
-        histroy.push("/")
+      histroy.push("/")
+        
     
       
     }
@@ -68,12 +91,13 @@ export default function Modal(props) {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <h2>{result}</h2>
+            <h2>Registered!</h2>
             
             <button className="close-modal" onClick={closeModal}>
               X
             </button>
           </div>
+         
         </div>
       )}
       

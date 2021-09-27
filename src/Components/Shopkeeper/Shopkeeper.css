@@ -10,7 +10,7 @@
     box-shadow: 1px 1px 5px grey;
 }
 .menuItemContainer{
-    margin-top: 15%;
+    margin-top: 10%;
 }
 .menuItem:hover{
     background:lightgrey;
@@ -26,4 +26,9 @@
 }
 .imageHandle:hover{
     background:lightgrey;
+}
+
+.newOrder{
+    background: red;
+    color: white;
 }

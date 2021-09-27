@@ -1,0 +1,35 @@
+.errorimage{
+    width: 13vw;
+    position: absolute;
+    margin-left: 20vw;
+    margin-top: 15%;
+}
+.maintext{
+    position: absolute;
+    margin-top: 18%;
+    margin-left: 32vw;
+}
+
+.linktext{
+    position: absolute;
+    margin-left: 32vw;
+    margin-top: 22%;
+}
+
+.errorimagephone{
+    width: 25vw;
+    position: absolute;
+    margin-top: 62vh;
+}
+
+.maintextphone{
+    position: absolute;
+    margin-left: 23vw;
+    margin-top: 65vh;
+}
+
+.linktextphone{
+    position: absolute;
+    margin-top: 83vh;
+    margin-left: 23vw;
+}

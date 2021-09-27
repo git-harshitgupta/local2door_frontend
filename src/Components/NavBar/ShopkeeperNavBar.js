@@ -1,36 +1,45 @@
 import React, { useState } from 'react';
 import logo from '../Files/logo.png'
-import { CustomerSiderData } from './CustomerSiderData';
+
 import  * as AiIcons  from "react-icons/ai";
 import './Navbar.css';
-import { IconContext } from 'react-icons';
-import { Grid,AppBar,Toolbar,Hidden, Typography, IconButton } from '@material-ui/core';
-import Navbar from './Navbar';
-import * as FaIcons from "react-icons/fa";
+import { useHistory } from 'react-router';
+import { AppBar,Toolbar, IconButton } from '@material-ui/core';
+import ApiService from '../Service/ApiService';
+
 
 function ShopkeeperNavBar(){
+    const history = useHistory();
+    const logoutButton=()=>{
+        
+        ApiService.closeStore().then((resp)=>{
+            history.push("/")
+            localStorage.clear();
+        })
+        
+    }
+    const settingButton=()=>{
+        
+        ApiService.closeStore().then((resp)=>{
+            history.push("/shopkeeper/setting")
+            
+        })
+        
+    }
     return (
         <>
         <AppBar position="sticky" style={{backgroundColor:"#FFC107"}}>
             
             <Toolbar>
-            <Hidden only={["sm","md","lg","xl"]}>
-                <Navbar/>
-            </Hidden>
+            
                 <img src={logo} style={{width:"60px",marginRight:"80%"}}/>
-                <Hidden only={'xs'}>
-                <IconButton style={{paddingLeft:"0px"}}>
-                    <AiIcons.AiFillSetting className="settingIcon"/>
-                </IconButton>
-                </Hidden>
-                <Hidden only={['sm','md','xl','lg']}>
-                <IconButton className='settingIconPhone' style={{paddingLeft:"0px"}}>
+                
+                <IconButton onClick={settingButton} className="settingIcon" style={{paddingLeft:"0px",position:"absolute",marginLeft:"77vw"}}>
                     <AiIcons.AiFillSetting />
                 </IconButton>
-                <IconButton className='cartIconPhone' style={{paddingLeft:"0px"}}>
-                    <FaIcons.FaShoppingCart />
+                <IconButton onClick={logoutButton} className="logoutIcon" style={{paddingLeft:"0px"}}>
+                    <AiIcons.AiOutlineLogout />
                 </IconButton>
-                </Hidden>
             </Toolbar>
         </AppBar>
         

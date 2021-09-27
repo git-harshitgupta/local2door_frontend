@@ -7,21 +7,16 @@ import * as ImIcons  from "react-icons/im";
 export const CustomerSiderData = [
     {
       title: 'Home',
-      path: '/',
-      icon: <AiIcons.AiFillHome />,
+      path: '/customermenu',
+      icon: <AiIcons.AiFillHome style={{color:"black"}}/>,
       cName: 'faa'
     },
     {
       title: 'Order Details',
-      path: '/reports',
-      icon: <IoIcons.IoIosPaper />,
+      path: '/customer/orderdetails',
+      icon: <IoIcons.IoIosPaper style={{color:"black"}}/>,
       cName: 'faa'
     },
-    {
-      title: 'Timeline',
-      path: '/reports',
-      icon: <IoIcons.IoIosAlbums />,
-      cName: 'faa'
-    }
+    
     
   ];

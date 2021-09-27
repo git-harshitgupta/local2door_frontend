@@ -1,10 +1,11 @@
 import PhostHolder from "./PhostHolder";
+import ShopkeeperNavBar from "../NavBar/ShopkeeperNavBar"
 import {Grid} from "@material-ui/core"
 import CreateNewPost from "./CreateNewPost";
 function ShopkeeperTimeline(){
     return(
         <div>
-            <Grid container>
+            <ShopkeeperNavBar/>            <Grid container>
                 <Grid item container xs={0} sm={3}>
                     <div>
 

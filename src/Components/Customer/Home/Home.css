@@ -1,0 +1,23 @@
+.sideMenu{
+    display:flex;
+    flexDirection:column;
+    position:absolute;
+    left:0px;
+    width:15vw;
+    height: -webkit-fill-available;
+    backgroundColor:#3F51B5;
+}
+.shopList{
+    width:100vw;
+    margin-left:30%;
+    margin-top:2px;
+    
+}
+.shopListPhone{
+    width:100vw;
+    margin-left:3%;
+    margin-top:2px;
+}
+.phoneWidth{
+    width:100px
+}

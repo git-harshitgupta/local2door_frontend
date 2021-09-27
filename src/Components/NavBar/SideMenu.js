@@ -1,7 +1,10 @@
 import './Navbar';
 import { Grid } from '@material-ui/core';
 import { CustomerSiderData } from './CustomerSiderData';
+import { useHistory } from "react-router";
+
 function SideMenu(){
+    const history=useHistory()
     return(
         <div className="wrapper">
             <div className="sidebar">
@@ -12,7 +15,7 @@ function SideMenu(){
                             <li key={index} className={item.cName}>
                             {/* <Link to={item.path}> */}
                             {item.icon}
-                            <span>{item.title}</span>
+                            <span onClick={()=>{history.push(item.path)}}>{item.title}</span>
                             {/* </Link> */}
                         </li>
                         );

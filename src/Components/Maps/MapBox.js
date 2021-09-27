@@ -1,10 +1,10 @@
-import React, { Component,useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import * as MdIcons from "react-icons/md";
-import { Button, IconButton } from '@material-ui/core';
+import {  IconButton } from '@material-ui/core';
 import location from '../Files/location.png'
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import Model from './Model';
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 
 function MapBox(){
   
@@ -52,7 +52,9 @@ function MapBox(){
       <IconButton className="gpsButton" onClick={getLocation}>
         <MdIcons.MdGpsFixed/>
       </IconButton>
-      <div className="submitButtonPosition"> <Model longitude={viewport.longitude} latitude={viewport.latitude}/></div>
+      <div className="submitButtonPosition"> 
+      <Model longitude={viewport.longitude} latitude={viewport.latitude}/>
+      </div>
       
       </div>
   );

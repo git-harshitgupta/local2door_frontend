@@ -1,10 +1,11 @@
-import { Card, Grid,makeStyles,CardMedia,CardContent,Typography, Icon, Hidden,Button} from "@material-ui/core";
-import { useState } from "react";
+import { Grid,makeStyles, Hidden,Button} from "@material-ui/core";
+import { CartContext } from "../Context/CartContext";
+import { useContext, useState } from "react";
 import defaultIcon from "../Files/logo.png"
 const useStyles = makeStyles((theme) => ({
     root: {
         height:"125px",
-        width:'50%',
+        width:'100%',
         boxShadow: '1px 1px 5px grey',
         marginTop:'4px',
         marginLeft:'0px',
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily:"Montserrat",
         fontSize: "22px",
         marginTop: "23px",
-        textDecoration:"underline"
+        
     },
     productDetails:{
         fontFamily:"Montserrat"
@@ -61,25 +62,32 @@ const useStyles = makeStyles((theme) => ({
     
     
 }));
-function ItemCard(){
+function ItemCard(props){
+    const [cart,setCart]=useContext(CartContext);
+    console.log("props data",props)
     const classes=useStyles();
     const [buy,setBuy]=useState(false);
-    const [quntity,setQuntity]=useState(1);
-    const hideBuy=()=>setBuy(!buy);
-    const increaseQuantity=()=>setQuntity(quntity+1);
-    const decreaseQuantity=()=>{
-        if(quntity-1==0)
-        setBuy(false);
-        else
-        setQuntity(quntity-1)
-    };
-    function quantityMention(quantity){
-        if(quntity==0){
-            setQuntity(1);
-            setBuy(false);
+    const hideBuy=()=>{
+        console.log("cart value",cart)
+        if(buy==false){
+            const product={
+                productId:props.product.productId,
+                productName:props.product.productName,
+                productPrice:props.product.productPrice,
+                productUnit:props.product.productUnit,
+                productQunatity:1,
+                productTotalPrice:props.product.productPrice
+            }
+            setCart(curr=>[...curr,product])
+            setBuy(!buy);
         }
-        else
-        setQuntity(quantity);
+        else{
+            var products = cart.filter((product)=>{
+                return product.productId!=props.product.productId;
+            });
+            setCart(products);
+            setBuy(!buy);
+        }
     }
     return(
         <div className={classes.hover}>
@@ -87,28 +95,22 @@ function ItemCard(){
         <Hidden only={"xs"}>
         <Grid container className={classes.root}>
             
-            <Grid container item sm={4}>
+            <Grid container item sm={2}>
             
-                <div  className={classes.cardStyle}>
-                    <img src={defaultIcon}  className={classes.cardImage}/>
-                </div>
+                
                 
             </Grid>
             <Grid container item sm={5}  direction="column">
-               <span className={classes.productName}>Product Name</span>
-               <span className={classes.productDetails}>Price</span>
-               <span className={classes.productDetails}>Quantity</span>
+               <span className={classes.productName}>{props.product.productName}</span>
+               <span className={classes.productDetails}>{props.product.productPrice}/{props.product.productUnit}</span>
+               
             </Grid>
             <Grid container item sm={3}>
                 <div>
                
 
                     {buy? 
-                        <div className={classes.quantityButton}>                
-                        <button onClick={increaseQuantity} >+</button>
-                        <input style={{width:"25px"}} type="text" onChange={(e)=>quantityMention(e.target.value)} value={quntity}/>
-                        <button onClick={decreaseQuantity} >-</button>
-                        </div>
+                        <Button variant="contained" onClick={hideBuy} color="primary" className={classes.buyButton}>REMOVE</Button>
                     :  
                     <Button variant="contained" onClick={hideBuy} color="primary" className={classes.buyButton}>BUY</Button>}
                 
@@ -120,26 +122,20 @@ function ItemCard(){
         <Hidden only={["sm","lg","md","xl"]}>
         <Grid container className={classes.rootPhone}>
             
-            <Grid container item  xs={4}>
+            <Grid container item  xs={3}>
             
-                <div  className={classes.cardStyle}>
-                    <img src={defaultIcon}  className={classes.cardImage}/>
-                </div>
+                
                 
             </Grid>
             <Grid container item  xs={5} direction="column">
-               <span className={classes.productName}>Shop Name</span>
-               <span className={classes.productDetails}>Quatity</span>
-               <span className={classes.productDetails}>Price</span>
+            <span className={classes.productName}>{props.product.productName}</span>
+               <span className={classes.productDetails}>{props.product.productPrice}/{props.product.productUnit}</span>
+               
             </Grid>
             <Grid container item xs={3}>
                 <div>
                 {buy? 
-                        <div className={classes.quantityButton}>                
-                        <button onClick={increaseQuantity} >+</button>
-                        <input style={{width:"25px"}} type="text" onChange={(e)=>quantityMention(e.target.value)} value={quntity}/>
-                        <button onClick={decreaseQuantity} >-</button>
-                        </div>
+                        <Button variant="contained" onClick={hideBuy} color="primary" className={classes.buyButton}>REMOVE</Button>
                     :  
                     <Button variant="contained" onClick={hideBuy} color="primary" className={classes.buyButton}>BUY</Button>}
                 </div>

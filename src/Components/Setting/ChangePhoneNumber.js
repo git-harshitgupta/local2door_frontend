@@ -1,82 +1,93 @@
-import {Grid,makeStyles, TextField} from "@material-ui/core";
-import { getAuth, RecaptchaVerifier } from "firebase/auth";
-import { useState } from "react";
-import firebase from '../firebase';
-const setStyles=makeStyles({
-    textBox:{
-        border:"2px solid #aaa",
-        width:"200px",
-        borderRadius:"4px",
-        margin:"8px 2px",
-        outline:"none",
-        padding:"8px",
-        boxSizing:"border-box",
-        transition:".3s",
-        "&:focus":{
-            borderColor:"dodgerBlue",
-            boxShadow:"0 0 8px 0 dodgerBlue"
-        }
-    },text:{
-        fontFamily:"Montserrat",
-        fontSize:"18px",
-        marginTop:"13px"
-    }
-})
-
-function ChangePhoneNumber(){
-    const auth = getAuth();
-    const phoneNumber = "+917987281833";
-    const cofigureCaptcha=()=>{
-    window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
-    'size': 'invisible',
-    'callback': (response) => {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-        onSignInSubmit();
+import { Grid, makeStyles, Hidden } from "@material-ui/core";
+import CustomerNavBar from "../NavBar/CustomerNavBar";
+import SideMenu from "../NavBar/SideMenu";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import ApiService from "../Service/ApiService";
+const setStyles = makeStyles({
+    textBox: {
+        border: "2px solid #aaa",
+        width: "200px",
+        borderRadius: "4px",
+        margin: "8px 2px",
+        outline: "none",
+        padding: "8px",
+        boxSizing: "border-box",
+        transition: ".3s",
+        "&:focus": {
+            borderColor: "dodgerBlue",
+            boxShadow: "0 0 8px 0 dodgerBlue",
+        },
     },
-    defaultCountry:"IN"
-    });
-}
+    text: {
+        fontFamily: "Montserrat",
+        fontSize: "18px",
+        marginTop: "13px",
+    },
+});
 
-    const onSignInSubmit = () =>{
-        const phoneNumber= "+917987281833";
-        console.log(phoneNumber);
-        cofigureCaptcha();
-        const appVerifer = window.recaptchaVerifier;
-        firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifer).then((confirmationResult)=>{
-            window.confirmationResult=confirmationResult;
-            console.log("otp send");
-        }).catch((error)=>{
+function ChangePhoneNumber() {
+    const history = useHistory();
+    const classes = setStyles();
+    const [phone, setPhone] = useState("");
+    const [validPhone, setValidPhone] = useState(true);
+    const [errormsg,setErrorMsg]=useState();
+    const validatePhone = (e) => {
+        if (/\d{10}/.test(e) && e.length == 10) {
+            setPhone(e);
+            setValidPhone(true);
+        } else {
+            setValidPhone(false);
+        }
+    };
+    useEffect(() => {
+        if (localStorage.getItem("jswtoken") == null) 
+            history.push("/error");
+    }, []);
+    const changeButtonHandler=()=>{
+        if(validPhone&&phone.length==10){
+            
+            ApiService.changePhone(phone).then((resp)=>{
+                history.push("/customer/setting")
+            }).catch((error)=>{
+                setErrorMsg(error.response.data.message)
+            })
+        }
+        else{
+            setValidPhone(false);
+        }
+    }
 
-        });
-    }
-    const classes=setStyles();
-    const [phoneNo,setPhoneNo]=useState();
-    const [showOptBox,setOptBox]=useState(false);
-    const [otpCode,setOtpCode]=useState();
-    const [userotpCode,setUserOtpCode]=useState();
-    const verify=()=>{
-        otpCode.confirm(userotpCode).then(function(result){
-            console.log(result.user,'user');
-        })
-    }
-    const handleVerification=()=>{
-        let recaptcha=new firebase.auth.RecaptchaVerifier('recaptcha');
-        setOtpCode(firebase.auth().signInWithPhoneNumber(phoneNo,recaptcha));
-            setOptBox(true);
-        
-    }
-    return(
-        <div id='sign-in-button'>
-        <Grid container item sm={7}>
-        <span className={classes.text}>Name</span>
-        </Grid>
-        <Grid container item sm={7}>
-        <input type="text" onChange={(e)=>setPhoneNo(e.target.value)} className={classes.textBox}/>
-        <button onClick={onSignInSubmit}>Click</button>
-        {showOptBox? <div><input type="text" onChange={(e)=>{setUserOtpCode(e.target.value)}}/>
-                    <button onClick={verify}>Submit</button></div>
-        :""}
-        </Grid>
+    return (
+        <div>
+            <CustomerNavBar />
+            <Hidden only="xs">
+                <SideMenu />
+            </Hidden>
+            <Grid container style={{ marginTop: "5%" }}>
+            <Grid item sm={3} xs={2}/>
+                    <Grid item sm={9} xs={10}>
+                        <span style={{color:"red"}}>{errormsg}</span></Grid>
+            <Grid sm={3} xs={2} />
+            <Grid item sm={9} xs={10}>
+            <span className={classes.text}>Enter the new phone number</span>
+            </Grid>
+            <Grid sm={3} xs={2} />
+            <Grid container item sm={7} xs={10}>
+            <input
+            type ="text"
+            onChange={(e) => validatePhone(e.target.value)}
+            className={classes.textBox}
+            />
+        {validPhone?"": <span style={{color: "red",marginTop: "10px"}}>Please enter a valid phone number</span>}
+            </Grid>
+            <Grid sm={3} xs={2} />
+            <Grid sm={9} xs={10}>
+            <button onClick={changeButtonHandler} type ="button" class ="btn btn-primary">
+            Change
+            </button>
+            </Grid>
+            </Grid>
         </div>
     );
 }

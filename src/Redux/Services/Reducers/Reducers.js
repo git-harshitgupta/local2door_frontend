@@ -1,22 +1,17 @@
-const initialState={
-    userDetails:[]
-}
+const initialState = {
+  cardData: [],
+};
 
-export default function addUser(state=[],action){
-    switch (action.type) {
-        case 'ADD_USER':
-            console.log(action)
-            return[
-                ...state,
-                {userDetails:action.userData}
-            ]
-            
-           
-            
-        default:
-             return state
-            
-            
-    
-    } 
+export default function cardItems(state=initialState, action) {
+  switch (action.type) {
+    case "ADD_PRODUCT":
+      console.log(action);
+      return {
+        ...state,
+        cardData: action.productData,
+      };
+
+    default:
+      return state
+  }
 }

@@ -1,5 +1,6 @@
-import { Card, Grid,makeStyles,CardMedia,CardContent,Typography, Icon, Hidden} from "@material-ui/core";
-import defaultIcon from "../../Files/logo.png"
+import { Grid,makeStyles, Hidden} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import defaultIcon from "../../Files/shopimage.jpg"
 const useStyles = makeStyles((theme) => ({
     root: {
         height:"125px",
@@ -35,9 +36,12 @@ const useStyles = makeStyles((theme) => ({
         
     },
     cardImage:{
-        width: '80px',
-    marginLeft: '12px',
-    marginTop: '16px'
+        height: '90px',
+        width: '84px',
+        borderRadius: '29px',
+        boxShadow: '1px 1px 5px grey',
+        marginTop: '15px',
+        marginLeft: '15px'
     },
     shopName:{
         fontFamily:"Montserrat",
@@ -54,23 +58,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ShopList(){
+function ShopList(props){
+    const imageUrl="http://localhost:8080/local2door/filehandler/shopkeeper/profile/"+props.data.shopid;
+    const shopClickHandler=()=>{
+        localStorage.setItem("shopId",props.data.shopid)
+    }
     const classes = useStyles();
     return(
-        <div className={classes.hover}>
+        <Link  to='/customer/shopproducts' style={{textDecoration:"none",color:"black"}}>
+        <div onClick={shopClickHandler} className={classes.hover}>
             <Hidden only={"xs"}>
             <Grid container className={classes.root}>
                 
                 <Grid container item sm={4}>
                 
-                    <div  className={classes.cardStyle}>
-                        <img src={defaultIcon}  className={classes.cardImage}/>
-                    </div>
+                    
+                        <img src={imageUrl} alt={defaultIcon}  className={classes.cardImage}/>
+                  
                     
                 </Grid>
                 <Grid container item sm={8}  direction="column">
-                   <span className={classes.shopName}>Shop Name</span>
-                   <span className={classes.shopAdd}>Addreas</span>
+                   <span className={classes.shopName}>{props.data.shopName}</span>
+                   <span className={classes.shopAdd}>{props.data.shopAdd}</span>
                 </Grid>
                 
             </Grid>
@@ -80,19 +89,18 @@ function ShopList(){
                 
                 <Grid container item  xs={4}>
                 
-                    <div  className={classes.cardStyle}>
-                        <img src={defaultIcon}  className={classes.cardImage}/>
-                    </div>
+                <img src={imageUrl} alt={defaultIcon} className={classes.cardImage}/>
                     
                 </Grid>
                 <Grid container item  xs={8} direction="column">
-                   <span className={classes.shopName}>Shop Name</span>
-                   <span className={classes.shopAdd}>Addreas</span>
+                   <span className={classes.shopName}>{props.data.shopName}</span>
+                   <span className={classes.shopAdd}>{props.data.shopAdd}</span>
                 </Grid>
                 
             </Grid>
             </Hidden>
         </div>
+        </Link>
     );
 }
 export default ShopList;

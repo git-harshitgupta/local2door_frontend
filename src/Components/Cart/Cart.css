@@ -8,7 +8,7 @@
 
 .root {
     height:130px;
-    width: 60%;
+    width: 100%;
     box-shadow: 1px 1px 5px grey;
     margin-top:10px;
     margin-left:0px;
@@ -20,7 +20,7 @@
 }
 
 .cardImage{
-    width:53%;
+    width:35%;
 }
 
 .quantityContainer{

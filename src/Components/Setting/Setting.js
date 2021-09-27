@@ -1,7 +1,8 @@
-import {Grid,makeStyles} from '@material-ui/core';
-import ChangePassword from './ChangePassword';
-import ChangePhoneNumber from './ChangePhoneNumber';
-import ChangeYourDetails from './ChangeYourDetails';
+import {Grid,makeStyles,Hidden} from '@material-ui/core';
+import CustomerNavBar from "../NavBar/CustomerNavBar";
+import SideMenu from "../NavBar/SideMenu";
+import {useHistory,Link} from 'react-router-dom'
+import {useEffect} from 'react'
 
 const useStyles=makeStyles({
     box:{
@@ -19,28 +20,55 @@ const useStyles=makeStyles({
 })
 
 function Setting(){
+    const history=useHistory()
+    useEffect(() => {
+        if(localStorage.getItem("jswtoken")==null)
+        history.push("/error")
+    }, [])
     const classes=useStyles();
     return(
         <div>
-            <ChangePassword/>
-            {/* <Grid container direction="column">
-                <Grid container sm={6} xs={6} className={classes.box}>
+            <CustomerNavBar/>
+            <Hidden only="xs">
+                <SideMenu/>
+            </Hidden>
+           
+            
+            <Grid container >
+                <Grid item sm={3} xs={0}/>
+                
+                <Grid container sm={8} xs={12} className={classes.box}>
+                <Link to="/customer/setting/details" style={{textDecoration:"none"}}>
                     <span>Change your details</span>
+                    </Link>
                 </Grid>
-                <Grid container sm={6} xs={6}  className={classes.box}>
+               
+                
+                <Grid item sm={3} xs={0}/>
+               
+                <Grid container sm={8} xs={12}  className={classes.box}>
+                <Link to="/customer/setting/password" style={{textDecoration:"none"}}>
                     <span>Change your password</span >
+                </Link>
                 </Grid>
-                <Grid container sm={6} xs={6}  className={classes.box}>
+                <Grid item sm={3} xs={0}/>
+                <Grid container sm={8} xs={12}  className={classes.box}>
+                <Link to="/customer/setting/number" style={{textDecoration:"none"}}>
                     <span>Change your phone number</span>
+                </Link>
                 </Grid>
-                <Grid container sm={6} xs={6}  className={classes.box}>
-                    <span>Change your email</span>
-                </Grid>
-                <Grid container sm={6} xs={6}  className={classes.box}>
+                <Grid item sm={3} xs={0}/>
+                <Grid container sm={8} xs={12}  className={classes.box}>
+                <Link to="/customer/setting/location" style={{textDecoration:"none"}}>
                     <span>Change your location</span>
+                </Link>
                 </Grid>
-            </Grid> */}
+            </Grid>
         </div>
+           
+
+        
+        
     );
 }
 

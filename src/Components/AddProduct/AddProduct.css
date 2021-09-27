@@ -1,0 +1,14 @@
+.profileImage{
+    width:200px;
+    height:200px;
+    border:1px dotted gray;
+    border-radius:100%;
+    object-fit:cover;
+}
+.addPhoto{
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    margin-top: 146px;
+    margin-left: 158px;
+}

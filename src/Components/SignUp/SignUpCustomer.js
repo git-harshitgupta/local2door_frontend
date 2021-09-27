@@ -1,22 +1,9 @@
-import { Card, Grid, Hidden, makeStyles, Paper } from "@material-ui/core";
+import {  Grid, Hidden} from "@material-ui/core";
 import PaperForUser from "./PaperForUser";
 import FormForCustomer from "./FormForCustomer";
-import addIcon from '@material-ui/icons/GroupAdd';
-import PaperForShopkeeper from "./PaperForShopkeeper";
-import FormForShopkeeper from "./FormForShopkeeper";
-import { useState } from "react";
+
 
 function SignUpCustomer(){
-    
-    const [userDetails,setUserDetails]=useState({
-        
-    });
-    const getUserDetails=(user)=>{
-
-    }
-    const getLocation=(location)=>{
-        
-    }
 
     return(
         <div>
@@ -36,7 +23,7 @@ function SignUpCustomer(){
                         </Hidden>
                        
                         
-                        <FormForCustomer userDetails={getUserDetails}/>
+                        <FormForCustomer />
                         
                         
                     </Grid> 
