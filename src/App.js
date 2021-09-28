@@ -2,8 +2,7 @@ import './App.css';
 import Login from './Components/Login/Login'
 import {BrowserRouter,Route} from 'react-router-dom'
 import CustomerOrShopkeeper from './Components/SignUp/CustomerOrShopkeeper';
-import SignUpCustomer from './Components/SignUp/SignUpCustomer';
-import SignUpShopKeeper from './Components/SignUp/SignUpShopKeeper';
+
 import MapBox from './Components/Maps/MapBox';
 import ShopkeeperHome from './Components/Shopkeeper/ShopkeeperHome';
 import Home from './Components/Customer/Home/Home'
@@ -17,10 +16,7 @@ import Cart from './Components/Cart/Cart';
 import { CheckOut } from './Components/Checkout/CheckOut';
 import OrderDetails from './Components/OrderDetails/OrderDetails';
 import OrderProductListController from './Components/OrderDetails/OrderProductListController';
-import ShopkeeperOrder from './Components/ShopkeeperOrder/ShopkeeperOrder';
-import ShopkeeperOrderHistory from './Components/ShopkeeperOrder/ShopkeeperOrderHistory';
-import OrderProductDetails from './Components/ShopkeeperOrder/OrderProductDetails';
-import ShopkeeperTimeline from './Components/Timeline/ShopkeeperTimeline';
+import FormForShopkeeper from './Components/SignUp/FormForShopkeeper'
 import { Error } from './Components/ErrorPage/Error';
 import { CustomerHome } from './Components/Customer/Home/CustomerHome';
 import { ItemListController } from './Components/ItemList/ItemListController';
@@ -38,6 +34,7 @@ import { ShopkeeperSetting } from './Components/Setting/ShopkeeperSetting';
 import { ShopkeeperChangeDetails } from './Components/Setting/ShopkeeperChangeDetails';
 import ShopkeeperChangePassword from './Components/Setting/ShopkeeperChangePassword';
 import { ToastContainer } from 'react-toastify';
+import FromForCustomer from './Components/SignUp/FormForCustomer';
 function App(){
   
   return (
@@ -55,11 +52,11 @@ function App(){
         </Route>
        
         <Route path='/signup/customer'>
-          <SignUpCustomer/>
+          <FromForCustomer/>
         </Route>
       
         <Route path='/signup/shopkeeper'>
-          <SignUpShopKeeper/>
+          <FormForShopkeeper/>
         </Route>
         <Route path='/signup/location'>
           <MapBox/>
@@ -80,7 +77,7 @@ function App(){
           <CustomerHome/>
         </Route>
         <Route path="/customer/shopproducts">
-          <ShopItemController/>
+          <ShopItemController/> 
         </Route>
         <Route path="/customer/cart">
           <Cart/>

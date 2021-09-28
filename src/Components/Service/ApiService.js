@@ -21,11 +21,10 @@ class ApiService{
         return axios.post(USER_API_BASE_URL+"/adduser",user)
     }
     addProfilePicture(user,id,image){
-        console.log(user+" "+id+" "+image);
         let formData = new FormData();
         formData.append("file",image);
-        if(user=='customer'){
-            return httpCommon.post(USER_API_BASE_URL+"/filehandler/profileimage/"+user+"/"+id,formData,{
+        if(user==='customer'){
+            return httpCommon.post(USER_API_BASE_URL+"/filehandler/profileimage/customer/"+id,formData,{
                 headers: {
                     "Content-Type": "multipart/form-data",
                   },
@@ -52,7 +51,7 @@ class ApiService{
         return axios.post(USER_API_BASE_URL+"/shopkeeper/addproduct",product,{
             headers:{
                 "Authorization":"Bearer "+userToken,
-                "email":localStorage.getItem("email")
+                
             }
         })
     }
@@ -202,7 +201,7 @@ class ApiService{
     loginUser(authenticationRequest){
        return axios
         .post(
-          "http://localhost:8080/local2door/authenticate",
+          USER_API_BASE_URL+"/authenticate",
           authenticationRequest
         )
     }

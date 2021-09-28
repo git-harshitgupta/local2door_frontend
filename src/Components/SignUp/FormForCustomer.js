@@ -39,9 +39,7 @@ function FromForCustomer(props) {
   const [add, setAdd] = useState("");
   const [house, setHouse] = useState();
   const [valideAdd, setValidAdd] = useState(true);
-  const [emailError, setEmailError] = useState(false);
   const emailVerfiy = (e) => {
-    setEmailError(false);
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/.test(e)) {
       console.log("done");
       setValidEmail(true);
@@ -150,8 +148,16 @@ function FromForCustomer(props) {
     }
   };
   return (
-    <Grid direction="column" alignItem="center">
-      <Grid item container style={{ marginLeft: "30vw" }} sm={3} xs={3}>
+    
+    <Grid  container >
+      <Grid  sm={3} xs={0}/> 
+      <Grid className="formbox" direction="column" alignContent="center" sm={6} xs={12}>
+        <span className="headingText">Customer SignUp Form</span>
+        <h1/>
+      
+
+        <div>
+
         <img src={profile} className="profileImage" />
         <input
           type="file"
@@ -159,13 +165,13 @@ function FromForCustomer(props) {
           style={{ display: "none" }}
           onChange={(e) => imageHandler(e)}
           accept="image/*"
-        />
-        <img src={profilePictureEdit} className="addPhoto" />
-        <label for="file-input" className="addPhoto"></label>
-      </Grid>
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
-          {validemail ? (
+          />
+        <img src={profilePictureEdit} className="profileImageAddIcon" />
+        <label for="file-input" className="profileImageAddIcon"></label>
+      
+        </div>
+        
+        {validemail ? (
             <TextField
               onChange={(e) => emailVerfiy(e.target.value)}
               defaultValue={email}
@@ -187,9 +193,6 @@ function FromForCustomer(props) {
               className={classes.textBox}
             />
           )}
-          {/* <TextField onChange={(e)=>emailVerfiy(e.target.value)} type="email" label="Email" variant="filled" color="secondary" className={classes.textBox}/> */}
-        </Grid>
-        <Grid xs={12} sm={6}>
           {validePassword ? (
             <TextField
               onChange={(e) => validatePassword(e.target.value)}
@@ -213,11 +216,6 @@ function FromForCustomer(props) {
               className={classes.textBox}
             />
           )}
-        </Grid>
-      </Grid>
-
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
           {validePhone ? (
             <TextField
               onChange={(e) => validatePhone(e.target.value)}
@@ -241,8 +239,6 @@ function FromForCustomer(props) {
               className={classes.textBox}
             />
           )}
-        </Grid>
-        <Grid xs={12} sm={6}>
           {valideName ? (
             <TextField
               onChange={(e) => nameVerify(e.target.value)}
@@ -261,15 +257,11 @@ function FromForCustomer(props) {
               type="text"
               label="Name"
               defaultValue={name}
-              helperText="Enter a valid name"
+              helperText="Enter a valid shop name"
               variant="filled"
               className={classes.textBox}
             />
           )}
-        </Grid>
-      </Grid>
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
           {valideAdd ? (
             <TextField
               onChange={(e) => validateAdd(e.target.value)}
@@ -293,40 +285,33 @@ function FromForCustomer(props) {
               className={classes.textBox}
             />
           )}
-        </Grid>
-        <Grid xs={12} sm={6}>
-          <TextField
-            onChange={(e) => setHouse(e.target.value)}
-            type="number"
-            label="House No"
-            variant="filled"
-            color="secondary"
-            className={classes.textBox}
-          />
-        </Grid>
-        <Grid item xs={12} xs={12}>
-          {emailError ? (
-            <Alert style={{ width: "100%" }} severity="error">
-              Error!-Email is already in use
-            </Alert>
-          ) : (
-            ""
-          )}
-        </Grid>
-        <Grid xs={12} sm={6}>
-          {/* <Link to='/signup/location'> */}
-          <Button
+         
+            <TextField
+              onChange={(e) => setHouse(e.target.value)}
+              
+              type="number"
+              label="House No"
+              variant="filled"
+              color="secondary"
+              className={classes.textBox}
+            />
+          
+           <Button
             onClick={buttonHandler}
             variant="contained"
-            style={{ paddingLeft: "0px" }}
+            style={{ paddingLeft: "0px",marginLeft: "35%" }}
             color="secondary"
             className={classes.button}
           >
             Next
           </Button>
-          {/* </Link> */}
-        </Grid>
       </Grid>
+      <Grid  sm={3} xs={0}/> 
+
+      
+      
+      
+     
     </Grid>
   );
 }

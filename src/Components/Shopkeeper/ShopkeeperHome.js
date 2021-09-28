@@ -1,15 +1,14 @@
-import { Grid,Hidden,makeStyles } from "@material-ui/core";
+import { Hidden } from "@material-ui/core";
 import ShopkeeperNavBar from '../NavBar/ShopkeeperNavBar';
 import { useHistory } from "react-router"
 import MenuItem from './MenuItem'
 import ApiService from "../Service/ApiService";
 import { useEffect,useState } from "react";
-import axios from "axios";
+
 
 function ShopkeeperHome(){
     const [shopName, setShopName] = useState();
     const [openClose,setOpenClose] = useState("CLOSED");
-    const token='Bearer '+localStorage.getItem("jswtoken");
     const history = useHistory();
 
     useEffect(() => {
@@ -30,30 +29,9 @@ function ShopkeeperHome(){
         })
     }
     
-    const useStyles=makeStyles({
-        sideMenu:{
-            display:'flex',
-            flexDirection:'column',
-            position:'absolute',
-            left:'0px',
-            width:'15vw',
-            height: '-webkit-fill-available',
-            backgroundColor:'#3F51B5'
-        },
-        shopList:{
-            width:'100vw',
-            marginLeft:'30%',
-            marginTop:'2px',
-            
-        },
-        phoneWidth:{
-            width:'100px'
-        },
     
-    
-    })
 
-    const classes=useStyles();
+    
     return(
         <div>
             

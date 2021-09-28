@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logo from '../Files/logo.png'
-
 import  * as AiIcons  from "react-icons/ai";
 import './Navbar.css';
 import { useHistory } from 'react-router';
@@ -31,8 +30,8 @@ function ShopkeeperNavBar(){
         <AppBar position="sticky" style={{backgroundColor:"#FFC107"}}>
             
             <Toolbar>
-            
-                <img src={logo} style={{width:"60px",marginRight:"80%"}}/>
+
+                <img onClick={()=>{history.push("/shopkeepermenu")}} src={logo} style={{width:"60px",marginRight:"80%"}}/>
                 
                 <IconButton onClick={settingButton} className="settingIcon" style={{paddingLeft:"0px",position:"absolute",marginLeft:"77vw"}}>
                     <AiIcons.AiFillSetting />

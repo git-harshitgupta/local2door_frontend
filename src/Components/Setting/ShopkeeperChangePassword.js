@@ -1,6 +1,4 @@
 import { Grid,Button,Hidden } from "@material-ui/core";
-import CustomerNavBar from "../NavBar/CustomerNavBar";
-import SideMenu from "../NavBar/SideMenu";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import './Setting.css'

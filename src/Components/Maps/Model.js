@@ -1,7 +1,7 @@
 import "./Modal.css";
 import {useState,useContext} from 'react'
 import ApiService from "../Service/ApiService";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useHistory } from "react-router";
 import 'react-toastify/dist/ReactToastify.css';
 import { SignUpFormContext } from "../Context/SignUpFormContext";
@@ -13,13 +13,8 @@ export default function Modal(props) {
   }
   const histroy=useHistory();
   const [form,setForm]=useContext(SignUpFormContext);
-    const [modal, setModal] = useState(false);
-    const [result,setresult]=useState();
-    const Model = () => {
-      setModal(!modal);
-    };
+   
     const toggleModal = () => {
-      setModal(!modal);
       let user={};
       if(form.user=="CUSTOMER"){
         user ={
@@ -49,16 +44,33 @@ export default function Modal(props) {
       }
         console.log(user);
         ApiService.addUser(user).then((resp)=>{
-          var id=resp.data.id;
+          var id=resp.data;
           if(form.profileImage==null)
           {
-            notify()
-            
+            toast.success('Registeration Successful!', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
+              histroy.push("/")
+              setForm("")
 
           }
           else{
           ApiService.addProfilePicture(form.user.toLowerCase(),id,form.profileImage).then(()=>{
-            const notify = () => toast("Registeration Succesful!");
+            toast.success('Registeration Successful!', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
             histroy.push("/")
             setForm("")
           })}
@@ -66,40 +78,16 @@ export default function Modal(props) {
        
         
     }
-    
-    const closeModal=()=>{
-      setModal(!modal);
-      histroy.push("/")
-        
-    
-      
-    }
-  
-    if(modal) {
-      document.body.classList.add('active-modal')
-    } else {
-      document.body.classList.remove('active-modal')
-    }
 
+  
+    
   return (
     <>
-      <button onClick={toggleModal} className="btn-modal">
+      <button onClick={toggleModal} className=" btn-primary btn-modal">
         Submit
       </button>
 
-      {modal && (
-        <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
-            <h2>Registered!</h2>
-            
-            <button className="close-modal" onClick={closeModal}>
-              X
-            </button>
-          </div>
-         
-        </div>
-      )}
+     
       
     </>
   );

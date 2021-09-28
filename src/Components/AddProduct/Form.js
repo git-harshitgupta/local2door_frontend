@@ -1,7 +1,8 @@
 import { Grid,TextField,Button } from "@material-ui/core";
 import { useState } from "react";
 import './AddProduct.css'
-
+import {  toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import ApiService from '../Service/ApiService'
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
@@ -73,6 +74,15 @@ function Form(){
                 
             }
             ApiService.addProduct(product).then((resp)=>{
+                toast.success('Product added successfully!', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
                 history.push("/shopkeepermenu")
             });
             

@@ -1,11 +1,11 @@
-import { Grid, TextField, makeStyles, Button } from "@material-ui/core";
+import { Grid, TextField, makeStyles, Button, Hidden } from "@material-ui/core";
 import "./Signup.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useContext } from "react";
 import logo from "../Files/logo.png";
 import { useHistory } from "react-router";
-import Alert from "@mui/material/Alert";
+
 import profilePictureEdit from "../Files/editProfilePicture.png";
 import { SignUpFormContext } from "../Context/SignUpFormContext";
 import ApiService from "../Service/ApiService";
@@ -33,7 +33,7 @@ function FromForShopkeeper() {
   const [phone, setPhone] = useState();
   const [validePhone, setValidPhone] = useState(true);
   const [password, setPassword] = useState();
-  const [validePassword, setValidPassword] = useState(true);
+  const [validePassword, setValidPassword] = useState(true); 
   const [valideName, setValidName] = useState(true);
   const [name, setName] = useState();
   const [add, setAdd] = useState("");
@@ -115,6 +115,7 @@ function FromForShopkeeper() {
                     shopRegId: shopRegId,
                     profileImage: image,
                   });
+                  
         
                   histroy.push("/signup/location");
             }).catch((error) => {
@@ -149,7 +150,7 @@ function FromForShopkeeper() {
     console.log(e);
     const reader = new FileReader();
     reader.onload = () => {
-      if (reader.readyState == 2) {
+      if (reader.readyState === 2) {
         setProfile(reader.result);
       }
     };
@@ -164,8 +165,15 @@ function FromForShopkeeper() {
     }
   };
   return (
-    <Grid container direction="column">
-      <Grid item container sm={3} xs={3}>
+    <Grid  container >
+      <Grid  sm={3} xs={0}/> 
+      <Grid className="formbox" direction="column" alignContent="center" sm={6} xs={12}>
+        <span className="headingText">Shopkeeper SignUp Form</span>
+        <h1/>
+      
+
+        <div>
+
         <img src={profile} className="profileImage" />
         <input
           type="file"
@@ -173,13 +181,13 @@ function FromForShopkeeper() {
           style={{ display: "none" }}
           onChange={(e) => imageHandler(e)}
           accept="image/*"
-        />
-        <img src={profilePictureEdit} className="addPhoto" />
-        <label for="file-input" className="addPhoto"></label>
-      </Grid>
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
-          {validemail ? (
+          />
+        <img src={profilePictureEdit} className="profileImageAddIcon" />
+        <label for="file-input" className="profileImageAddIcon"></label>
+      
+        </div>
+        
+        {validemail ? (
             <TextField
               onChange={(e) => emailVerfiy(e.target.value)}
               defaultValue={email}
@@ -201,8 +209,6 @@ function FromForShopkeeper() {
               className={classes.textBox}
             />
           )}
-        </Grid>
-        <Grid xs={12} sm={6}>
           {validePassword ? (
             <TextField
               onChange={(e) => validatePassword(e.target.value)}
@@ -225,12 +231,7 @@ function FromForShopkeeper() {
               variant="filled"
               className={classes.textBox}
             />
-          )}{" "}
-        </Grid>
-      </Grid>
-
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
+          )}
           {validePhone ? (
             <TextField
               onChange={(e) => validatePhone(e.target.value)}
@@ -253,9 +254,7 @@ function FromForShopkeeper() {
               variant="filled"
               className={classes.textBox}
             />
-          )}{" "}
-        </Grid>
-        <Grid xs={12} sm={6}>
+          )}
           {valideName ? (
             <TextField
               onChange={(e) => nameVerify(e.target.value)}
@@ -278,11 +277,7 @@ function FromForShopkeeper() {
               variant="filled"
               className={classes.textBox}
             />
-          )}{" "}
-        </Grid>
-      </Grid>
-      <Grid item container alignContent="center">
-        <Grid xs={12} sm={6}>
+          )}
           {valideAdd ? (
             <TextField
               onChange={(e) => validateAdd(e.target.value)}
@@ -305,9 +300,7 @@ function FromForShopkeeper() {
               variant="filled"
               className={classes.textBox}
             />
-          )}{" "}
-        </Grid>
-        <Grid xs={12} sm={6}>
+          )}
           {valideShopRegNo ? (
             <TextField
               onChange={(e) => validateShopRegNo(e.target.value)}
@@ -330,29 +323,23 @@ function FromForShopkeeper() {
               variant="filled"
               className={classes.textBox}
             />
-          )}{" "}
-        </Grid>
-        <Grid item xs={12} xs={12}>
-          {emailError ? (
-            <Alert style={{ width: "100%" }} severity="error">
-              Error!-Email is already in use
-            </Alert>
-          ) : (
-            ""
           )}
-        </Grid>
-        <Grid xs={12} sm={6}>
-          <Button
+           <Button
             onClick={buttonHandler}
             variant="contained"
-            style={{ paddingLeft: "0px" }}
+            style={{ paddingLeft: "0px",marginLeft: "35%" }}
             color="secondary"
             className={classes.button}
           >
             Next
           </Button>
-        </Grid>
       </Grid>
+      <Grid  sm={3} xs={0}/> 
+
+      
+      
+      
+     
     </Grid>
   );
 }

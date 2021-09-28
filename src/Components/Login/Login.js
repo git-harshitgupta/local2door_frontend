@@ -5,26 +5,25 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import ApiService from "../Service/ApiService";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [errorMsg,seterrorMsg]=useState();
+  const [errorMsg, seterrorMsg] = useState();
   const [validemail, setValidEmail] = useState(true);
   const [validePassword, setValidPassword] = useState(true);
   const [validaLogin, setValidLogin] = useState(true);
   useEffect(() => {
-    if(localStorage.getItem("jswtoken")!=null){
-      if(localStorage.getItem("type")=="shopkeeper"){
+    if (localStorage.getItem("jswtoken") != null) {
+      if (localStorage.getItem("type") === "shopkeeper") {
         history.push("/shopkeepermenu");
-      }else {
+      } else {
         history.push("/customermenu");
       }
     }
-    
-  }, [])
-  
+  }, []);
 
   const emailVerfiy = (e) => {
     if (/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/.test(e)) {
@@ -59,17 +58,24 @@ function Login() {
       ApiService.loginUser(authenticationRequest)
         .then((resp) => {
           localStorage.setItem("jswtoken", resp.data.jwt);
-          localStorage.setItem("email", email);
-          localStorage.setItem("type",resp.data.type);
-          if (resp.data.type == "shopkeeper") {
+          localStorage.setItem("email", resp.data.email);
+          localStorage.setItem("type", resp.data.type);
+          if (resp.data.type === "shopkeeper") {
             history.push("/shopkeepermenu");
           } else {
             history.push("/customermenu");
           }
         })
         .catch((error) => {
-          seterrorMsg(error.response.data.message);
-          setValidLogin(false);
+          toast.error(error.response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         });
     }
   };
